@@ -42,16 +42,15 @@ func (u *User) CreateUser(id string, name string, email string, password string)
 	}
 
 	hashedPassword, err := u.hasher.Create(password)
-
 	if err != nil {
 		return nil, err
 	}
 
-	return &User{
-		ID:         id,
-		Name:       name,
-		Email:      email,
-		Password:   hashedPassword,
-		Created_at: time.Now(),
-	}, nil
+	u.ID = id
+	u.Name = name
+	u.Email = email
+	u.Password = hashedPassword
+	u.Created_at = time.Now()
+
+	return u, nil
 }
