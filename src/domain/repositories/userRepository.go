@@ -6,5 +6,5 @@ import (
 )
 
 type UserRepository interface {
-	Save(user entities.User) (*entities.User, shared.InternalError)
+	Save(user entities.User) (*entities.User, *shared.InternalError)
 }
