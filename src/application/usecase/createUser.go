@@ -30,5 +30,24 @@ func NewCreateUserUseCase(
 }
 
 func (u *CreateUserUseCase) Execute(input userDto.CreateUserDto) (*entities.User, *shared.InternalError) {
-	return nil, nil
+	userId, errId := u.uniqueIdentifier.Generate()
+	if errId != nil {
+		return nil, errId
+	}
+
+	userEntity := entities.NewUser(u.hasher, u.emailValidator)
+
+	_, errUserEntity := userEntity.CreateUser(userId, input.Name, input.Email, input.Password)
+
+	if errUserEntity != nil {
+		return nil, errUserEntity
+	}
+
+	savedUser, errSaveUser := u.userRepository.Save(userEntity)
+
+	if errSaveUser != nil {
+		return nil, errSaveUser
+	}
+
+	return savedUser, nil
 }
