@@ -9,14 +9,23 @@ import (
 )
 
 type CreateUserUseCase struct {
-	uniqueIdentifier services.UniqueIdentifierService
 	userRepository   repositories.UserRepository
+	uniqueIdentifier services.UniqueIdentifierService
+	emailValidator   services.EmailValidationService
+	hasher           services.HasherService
 }
 
-func NewCreateUserUseCase(uniqueIdentifierService services.UniqueIdentifierService, userRepository repositories.UserRepository) *CreateUserUseCase {
+func NewCreateUserUseCase(
+	uniqueIdentifierService services.UniqueIdentifierService,
+	userRepository repositories.UserRepository,
+	emailValidatorService services.EmailValidationService,
+	hasherService services.HasherService,
+) *CreateUserUseCase {
 	return &CreateUserUseCase{
 		uniqueIdentifier: uniqueIdentifierService,
 		userRepository:   userRepository,
+		emailValidator:   emailValidatorService,
+		hasher:           hasherService,
 	}
 }
 
