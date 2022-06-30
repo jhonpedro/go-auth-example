@@ -22,3 +22,9 @@ func (f *FakeHasherService) Create(str string) (string, *shared.InternalError) {
 
 	return args.String(0), error
 }
+
+func (f *FakeHasherService) Compare(str string, hashedStr string) bool {
+	args := f.Called(str)
+
+	return args.Bool(0)
+}

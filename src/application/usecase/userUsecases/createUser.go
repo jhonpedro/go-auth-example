@@ -1,4 +1,4 @@
-package usecase
+package userUsecases
 
 import (
 	"github.com/jhonpedro/go-auth-example/src/application/dto/userDto"
@@ -29,7 +29,9 @@ func NewCreateUserUseCase(
 	}
 }
 
-func (u *CreateUserUseCase) Execute(input userDto.CreateUserDto) (*entities.User, *shared.InternalError) {
+func (u *CreateUserUseCase) Execute(
+	input userDto.InputCreateUserDto,
+) (*userDto.OutputCreateUserDto, *shared.InternalError) {
 	userId, errId := u.uniqueIdentifier.Generate()
 	if errId != nil {
 		return nil, errId
@@ -49,5 +51,7 @@ func (u *CreateUserUseCase) Execute(input userDto.CreateUserDto) (*entities.User
 		return nil, errSaveUser
 	}
 
-	return savedUser, nil
+	return &userDto.OutputCreateUserDto{
+		User: *savedUser,
+	}, nil
 }

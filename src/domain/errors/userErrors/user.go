@@ -22,3 +22,10 @@ func InvalidUserPasswordLenght() *shared.InternalError {
 		Message:    "Password must have 8 or more characters",
 	}
 }
+
+func WrongUserEmailOrPassword() *shared.InternalError {
+	return &shared.InternalError{
+		StatusCode: 403,
+		Message:    "Wrong password or email",
+	}
+}
