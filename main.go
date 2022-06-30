@@ -5,5 +5,13 @@ import (
 )
 
 func main() {
-	fmt.Println("Main")
+	x := 123
+
+	if x := true; x {
+		x := 124
+
+		fmt.Println(x)
+	}
+
+	fmt.Println(x)
 }
